@@ -1,9 +1,4 @@
-/*	example code for cc65, for NES
- *  Scrolling Right with metatile system
- *	, basic platformer
- *	, with coins and enemies
- *	using neslib
- *	Doug Fraker 2018
+/*	This is a mode of Doug Fraker's 2018 game called platformer5
  */	
 
 // for horizontal scrolling

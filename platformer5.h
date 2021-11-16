@@ -107,7 +107,7 @@ unsigned char coin_actual_x[MAX_COINS];
 
 
 
-#define MAX_ENEMY 16
+#define MAX_ENEMY 5
 unsigned char enemy_x[MAX_ENEMY];
 unsigned char enemy_y[MAX_ENEMY];
 unsigned char enemy_active[MAX_ENEMY];
@@ -180,14 +180,14 @@ const unsigned char is_solid[]={
 
 
 
-#define MAX_ROOMS (5-1)
+#define MAX_ROOMS (6-1)
 #define MAX_SCROLL (MAX_ROOMS*0x100)-1
 // data is exactly 240 bytes, 16 * 15
 // doubles as the collision map data
 
 
 const unsigned char * const Rooms[]= {
-	Room1, Room2, Room3, Room4, Room5
+	Room1, Room2, Room3, Room4, Room5, Room6
 };
 
 //y, room, x
@@ -198,16 +198,17 @@ const unsigned char level_1_coins[]={
 	0x41,2,0x95,
 	0x61,3,0x75,
 	0x41,4,0x85,
+  	0x41,5,0x85,
 	TURN_OFF
 };
 
 //y, room, x
 //y = TURN_OFF end of list
 const unsigned char level_1_enemies[]={
-	0xc2,0,0xb0,
-	0xc2,1,0x80,
-	0xc2,2,0xc0,
-	0xc2,3,0xf0,
+	0xc0,0,0xb0,
+	0xc0,1,0x80,
+	0xc0,2,0xc0,
+	0xc0,3,0xf0,
 	TURN_OFF
 };
 
