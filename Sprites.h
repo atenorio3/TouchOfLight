@@ -1,5 +1,6 @@
 // a 16x16 pixel metasprite
 
+// Player Render
 const unsigned char RoundSprL[]={
 	  0xff,  0xfc,0x02,0,
 	  7,  0xfc,0x03,0,
@@ -18,13 +19,15 @@ const unsigned char RoundSprR[]={
 };
 
 
+// Coin Render
+// Note: 0x21 + 0x30 = Water Drop
 const unsigned char CoinSpr[]={
 	  0xff,  0xff,0x20,1,
 	  0xff,  7,0x30,1,
 	128
 };
 
-
+// Enemy 1 Render
 const unsigned char EnemySpr[]={
 	  0xff,  0xff,0x04,2,
 	  7,  0xff,0x05,2,
@@ -34,6 +37,7 @@ const unsigned char EnemySpr[]={
 };
 
 
+// Render for "COINS" Text at the top
 const unsigned char CoinsSpr[]={
 	  0,  0,0xfa,3,
 	  8,  0,0xfb,3,
@@ -43,6 +47,11 @@ const unsigned char CoinsSpr[]={
 	128
 };
 
-
+// Render for Spikes
+const unsigned char SpikeSpr[]={
+  0xff, 0xff, 0x21,1,
+  0xff, 7, 0x31, 1,
+  128
+};
 
 

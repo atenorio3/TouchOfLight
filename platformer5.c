@@ -188,7 +188,15 @@ void draw_sprites(void){
 		}
 	}
 	
-	
+	for(index = 0; index < MAX_SPIKES; ++index){
+		temp_y = spike_y[index];
+		if(temp_y == TURN_OFF) continue;
+		temp1 = spike_active[index];
+		temp2 = spike_x[index];
+		if(temp1 && (temp_y < 0xf0)) {
+			sprid = oam_meta_spr(temp2, temp_y, sprid, SpikeSpr);
+		}
+	}
 	
 	// draw "coins" at the top in sprites
 	sprid = oam_meta_spr(16,16,sprid, CoinsSpr);
@@ -608,6 +616,21 @@ void sprite_collisions(void){
 			}
 		}
 	}
+	// Spike Addition
+  	Generic2.width = SPIKE_WIDTH;
+  	Generic2.height = SPIKE_HEIGHT;
+  
+	for(index = 0; index < MAX_SPIKES; ++index){
+		if(spike_active[index]){
+			Generic2.x = spike_x[index];
+			Generic2.y = spike_y[index];
+			if(check_collision(&Generic, &Generic2)){
+				spike_y[index] = TURN_OFF;
+				sfx_play(SFX_DING, 0);
+				++coins;
+			}
+		}
+	}
 }
 
 
@@ -636,7 +659,16 @@ void check_spr_objects(void){
 		}
 
 	}
+  
+	for(index = 0; index < MAX_SPIKES; ++index){
+		spike_active[index] = 0; //default to zero
+		if(spike_y[index] != TURN_OFF){
+			temp5 = (spike_room[index] << 8) + spike_actual_x[index];
+			spike_active[index] = get_position();
+			spike_x[index] = temp_x; // screen x coords
+		}
 
+	}
 	
 }
 
@@ -686,9 +718,6 @@ void sprite_obj_init(void){
 	for(++index;index < MAX_COINS; ++index){
 		coin_y[index] = TURN_OFF;
 	}
-	
-	
-	
 
 	pointer = level_1_enemies;
 	for(index = 0,index2 = 0;index < MAX_ENEMY; ++index){
@@ -718,6 +747,37 @@ void sprite_obj_init(void){
 	for(++index;index < MAX_ENEMY; ++index){
 		enemy_y[index] = TURN_OFF;
 	}
+  
+  	pointer = level_1_spikes;
+	for(index = 0,index2 = 0;index < MAX_SPIKES; ++index){
+		
+		spike_x[index] = 0;
+
+		temp1 = pointer[index2]; // get a byte of data
+		spike_y[index] = temp1;
+		
+		if(temp1 == TURN_OFF) break;
+
+		++index2;
+		
+		spike_active[index] = 0;
+
+		
+		temp1 = pointer[index2]; // get a byte of data
+		spike_room[index] = temp1;
+		
+		++index2;
+		
+		temp1 = pointer[index2]; // get a byte of data
+		spike_actual_x[index] = temp1;
+		
+		++index2;
+	}
+	
+	for(++index;index < MAX_SPIKES; ++index){
+		spike_y[index] = TURN_OFF;
+	}
+
 }
 
 
