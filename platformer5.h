@@ -94,7 +94,7 @@ struct Hero BoxGuy1 = {0x4000,0xc400}; // starting position
 #define HERO_HEIGHT 11
 
 
-#define MAX_COINS 16
+#define MAX_COINS 2
 unsigned char coin_x[MAX_COINS];
 unsigned char coin_y[MAX_COINS];
 unsigned char coin_active[MAX_COINS];
@@ -106,7 +106,7 @@ unsigned char coin_actual_x[MAX_COINS];
 #define COIN_WIDTH 7
 #define COIN_HEIGHT 11
 
-#define MAX_SPIKES 1
+#define MAX_SPIKES 4
 #define SPIKE_WIDTH 7
 #define SPIKE_HEIGHT 11
 unsigned char spike_x[MAX_SPIKES];
@@ -117,7 +117,7 @@ unsigned char spike_actual_x[MAX_SPIKES];
 
 
 
-#define MAX_ENEMY 4
+#define MAX_ENEMY 2
 unsigned char enemy_x[MAX_ENEMY];
 unsigned char enemy_y[MAX_ENEMY];
 unsigned char enemy_active[MAX_ENEMY];
@@ -205,10 +205,6 @@ const unsigned char * const Rooms[]= {
 const unsigned char level_1_coins[]={
 	0x61,0,0x65,
 	0x81,1,0x85,
-	0x41,2,0x95,
-	0x61,3,0x75,
-	0x41,4,0x85,
-  	0x41,5,0x85,
 	TURN_OFF
 };
 
@@ -216,13 +212,15 @@ const unsigned char level_1_coins[]={
 //y = TURN_OFF end of list
 const unsigned char level_1_enemies[]={
 	0xc0,0,0xc0,
-	0xc0,1,0x80,
 	0xc0,2,0xc0,
 	TURN_OFF
 };
 
 const unsigned char level_1_spikes[]={
-  	0xc4, 0, 0xc0,
+  	0xd4, 1, 0x31,
+  	0xd4, 1, 0x37,
+  	0xd4, 1, 0x3d,
+  	0xd4, 1, 0x43,
   	TURN_OFF
 };
 
