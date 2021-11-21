@@ -18,32 +18,35 @@
 
 /* famitone stuff */
 //#link "famitone2.s"
+void __fastcall__ famitone_update(void);
 //#link "SoundFx.s"
+extern char sounds[];
 //#link "TestMusic3.s"
+extern char TestMusic3_music_data[];
 //#link "FinalTheme.s"
 extern char FinalTheme[];
-extern char TestMusic3_music_data[];
-extern char sounds[];
 
 #define VRAMBUF ((byte*)0x700)
 
 void main (void) {
-	
+  	// sfx_init(SpikeTrap);
+        // sfx_play(0,0);
+  
 	ppu_off(); // screen off
   
   	// Initialize Music
-  	/*famitone_init(FinalTheme);
-  	nmi_set_callback(famitone_update);
-  	music_play(0);*/
-  
+  	// famitone_init(FinalTheme);
+  	// nmi_set_callback(famitone_update);
+  	// music_play(0);
+  	
   	// Pre-Check with Enter
   	// music_stop();
-  
-  	/*famitone_init(TestMusic3_music_data);
-  	sfx_init(sounds);
+// --------------------------------------------------------------
+  	// famitone_init(TestMusic3_music_data);
+  	// sfx_init(sounds);
 	
-	song = SONG_GAME;
-	music_play(song);*/
+	// song = SONG_GAME;
+	// music_play(song);
 	
 	// load the palettes
 	pal_bg(palette_bg);
@@ -59,16 +62,14 @@ void main (void) {
 	load_room();
 	
 	ppu_on_all(); // turn on screen
-	
-	
 
 	
 	while (1){
 		// infinite loop
 		while(game_mode == MODE_GAME){
 			ppu_wait_nmi();
-			
-			set_music_speed(8);
+                  	
+                  	// set_music_speed(8);
 		
 			pad1_new = pad_trigger(0); // read the first controller
 			pad1 = pad_state(0);
@@ -90,8 +91,8 @@ void main (void) {
 			
 			if(pad1_new & PAD_START){
 				game_mode = MODE_PAUSE;
-				song = SONG_PAUSE;
-				music_play(song);
+				// song = SONG_PAUSE;
+				// music_play(song);
 				color_emphasis(COL_EMP_DARK);
 			}
 		}
@@ -106,8 +107,8 @@ void main (void) {
 			
 			if(pad1_new & PAD_START){
 				game_mode = MODE_GAME;
-				song = SONG_GAME;
-				music_play(song);
+				// song = SONG_GAME;
+				// music_play(song);
 				color_emphasis(COL_EMP_NORMAL);
 			}
 		}
@@ -317,7 +318,7 @@ void movement(void){
 	if(collision_D) {
 		if(pad1_new & PAD_A) {
 			BoxGuy1.vel_y = JUMP_VEL; // JUMP
-			sfx_play(SFX_JUMP, 0);
+			// sfx_play(SFX_JUMP, 0);
 		}
 		
 	}
@@ -606,7 +607,7 @@ void sprite_collisions(void){
 			Generic2.y = coin_y[index];
 			if(check_collision(&Generic, &Generic2)){
 				coin_y[index] = TURN_OFF;
-				sfx_play(SFX_DING, 0);
+				// sfx_play(SFX_DING, 0);
 				++coins;
 			}
 		}
@@ -621,7 +622,7 @@ void sprite_collisions(void){
 			Generic2.y = enemy_y[index];
 			if(check_collision(&Generic, &Generic2)){
 				enemy_y[index] = TURN_OFF;
-				sfx_play(SFX_NOISE, 0);
+				// sfx_play(SFX_NOISE, 0);
 				if(coins) --coins;
 			}
 		}
@@ -636,7 +637,7 @@ void sprite_collisions(void){
 			Generic2.y = spike_y[index];
 			if(check_collision(&Generic, &Generic2)){
 				spike_y[index] = TURN_OFF;
-				sfx_play(SFX_DING, 0);
+				// sfx_play(SFX_DING, 0);
 				++coins;
 			}
 		}

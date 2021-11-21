@@ -50,10 +50,10 @@ unsigned char old_x;
 //unsigned char old_y;
 unsigned char temp_x;
 unsigned char temp_y;
-unsigned char song;
-#define MAX_SONGS 2
-enum {SONG_GAME, SONG_PAUSE};
-enum {SFX_JUMP, SFX_DING, SFX_NOISE};
+// unsigned char song;
+// #define MAX_SONGS 2
+// enum {SONG_GAME, SONG_PAUSE};
+// enum {SFX_JUMP, SFX_DING, SFX_NOISE};
 
 unsigned char game_mode;
 enum {MODE_GAME, MODE_PAUSE};
