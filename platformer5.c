@@ -1,5 +1,5 @@
 /*	This is a mode of Doug Fraker's 2018 game called platformer5
- */	
+*/	
 
 // for horizontal scrolling
 #define NES_MIRRORING 1
@@ -20,6 +20,8 @@
 //#link "famitone2.s"
 //#link "SoundFx.s"
 //#link "TestMusic3.s"
+//#link "FinalTheme.s"
+extern char FinalTheme[];
 extern char TestMusic3_music_data[];
 extern char sounds[];
 
@@ -29,11 +31,19 @@ void main (void) {
 	
 	ppu_off(); // screen off
   
-  	famitone_init(TestMusic3_music_data);
+  	// Initialize Music
+  	/*famitone_init(FinalTheme);
+  	nmi_set_callback(famitone_update);
+  	music_play(0);*/
+  
+  	// Pre-Check with Enter
+  	// music_stop();
+  
+  	/*famitone_init(TestMusic3_music_data);
   	sfx_init(sounds);
 	
 	song = SONG_GAME;
-	music_play(song);
+	music_play(song);*/
 	
 	// load the palettes
 	pal_bg(palette_bg);
