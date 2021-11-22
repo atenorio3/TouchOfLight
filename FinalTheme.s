@@ -10,7 +10,6 @@ _FinalTheme:
 	.byte .lobyte(@tempo_env_10_mid), .hibyte(@tempo_env_10_mid), 0, 0
 
 .export _FinalTheme
-.global FAMISTUDIO_DPCM_PTR
 
 @instruments:
 	.word @env2,@env0,@env8,@env6

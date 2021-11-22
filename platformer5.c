@@ -29,18 +29,22 @@ extern char FinalTheme[];
 #define VRAMBUF ((byte*)0x700)
 
 void main (void) {
+  	// Initialize Music
+  	// famitone_init(&FinalTheme);
+  	// nmi_set_callback(famitone_update);
+  	// music_play(0);
+  	// nmi_set_callback(famitone_update);
+  	
+  	// Pre-Check with Enter
+  	// music_stop();
+  
   	// sfx_init(SpikeTrap);
         // sfx_play(0,0);
   
 	ppu_off(); // screen off
   
-  	// Initialize Music
-  	// famitone_init(FinalTheme);
-  	// nmi_set_callback(famitone_update);
-  	// music_play(0);
-  	
-  	// Pre-Check with Enter
-  	// music_stop();
+  	// Extras
+  	// show_screen(!game_lives?SCREEN_GAMEOVER:SCREEN_WELLDONE);//show game results
 // --------------------------------------------------------------
   	// famitone_init(TestMusic3_music_data);
   	// sfx_init(sounds);
