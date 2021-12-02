@@ -1,5 +1,5 @@
 #define ACCEL 0x30
-#define GRAVITY 0x50
+#define GRAVITY 0x5A
 #define MAX_SPEED 0x240
 #define JUMP_VEL -0x600
 #define MAX_RIGHT 0xb000
@@ -56,7 +56,7 @@ unsigned char temp_y;
 // enum {SFX_JUMP, SFX_DING, SFX_NOISE};
 
 unsigned char game_mode;
-enum {MODE_GAME, MODE_PAUSE};
+enum {MODE_GAME, MODE_PAUSE, MODE_GAMEOVER};
 
 unsigned char coins;
 const unsigned char * pointer;
@@ -117,10 +117,6 @@ unsigned char enemy_actual_x[MAX_ENEMY];
 
 #define ENEMY_WIDTH 13
 #define ENEMY_HEIGHT 13
-
-
-
-
 
 const unsigned char palette_bg[]={
 0x22, 0x16, 0x36, 0x0f,

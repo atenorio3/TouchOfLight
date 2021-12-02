@@ -66,10 +66,12 @@ void main (void) {
 	load_room();
 	
 	ppu_on_all(); // turn on screen
-
+  
+  	
+  	
 	
 	while (1){
-		// infinite loop
+		// Active State
 		while(game_mode == MODE_GAME){
 			ppu_wait_nmi();
                   	
@@ -100,6 +102,7 @@ void main (void) {
 				color_emphasis(COL_EMP_DARK);
 			}
 		}
+          	// Pause State
 		while(game_mode == MODE_PAUSE){
 			ppu_wait_nmi();
 
@@ -116,6 +119,10 @@ void main (void) {
 				color_emphasis(COL_EMP_NORMAL);
 			}
 		}
+          	// Game-Over State
+          	while(game_mode == MODE_GAMEOVER){
+                  
+                }
 		
 	}
 }
@@ -251,6 +258,10 @@ void movement(void){
 		BoxGuy1.x = 0x100;
 		BoxGuy1.vel_x = 0;
 	} 
+  	
+  	if(BoxGuy1.y > 0xdf00){ // Game Over from falling out of level.
+          	game_mode = MODE_GAMEOVER;
+        }
 	
 	L_R_switch = 1; // shinks the y values in bg_coll, less problems with head / feet collisions
 	
