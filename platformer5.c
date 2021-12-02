@@ -259,7 +259,7 @@ void movement(void){
 		BoxGuy1.vel_x = 0;
 	} 
   	
-  	if(BoxGuy1.y > 0xdf00){ // Game Over from falling out of level.
+  	if(BoxGuy1.y > 0xea00){ // Game Over from falling out of level.
           	game_mode = MODE_GAMEOVER;
         }
 	
@@ -626,9 +626,13 @@ void sprite_collisions(void){
 			Generic2.x = enemy_x[index];
 			Generic2.y = enemy_y[index];
 			if(check_collision(&Generic, &Generic2)){
-				enemy_y[index] = TURN_OFF;
-				// sfx_play(SFX_NOISE, 0);
-				if(coins) --coins;
+                          	// Option 1: Multiple Lives; Lose health on hit
+					//enemy_y[index] = TURN_OFF;
+					// sfx_play(SFX_NOISE, 0);
+					//if(coins) --coins;
+                          	// --------
+                          	// Option 2: 1 Life; Die on hit
+                          	game_mode = MODE_GAMEOVER;
 			}
 		}
         }
