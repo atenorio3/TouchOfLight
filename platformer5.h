@@ -106,15 +106,6 @@ unsigned char coin_actual_x[MAX_COINS];
 #define COIN_WIDTH 7
 #define COIN_HEIGHT 11
 
-#define MAX_SPIKES 4
-#define SPIKE_WIDTH 7
-#define SPIKE_HEIGHT 11
-unsigned char spike_x[MAX_SPIKES];
-unsigned char spike_y[MAX_SPIKES];
-unsigned char spike_active[MAX_SPIKES];
-unsigned char spike_room[MAX_SPIKES];
-unsigned char spike_actual_x[MAX_SPIKES];
-
 
 
 #define MAX_ENEMY 2
@@ -239,14 +230,6 @@ const unsigned char level_1_enemies[]={
 	0xc0,0,0xc0,
 	0xc0,2,0xc0,
 	TURN_OFF
-};
-
-const unsigned char level_1_spikes[]={
-  	0xd4, 1, 0x31,
-  	0xd4, 1, 0x37,
-  	0xd4, 1, 0x3d,
-  	0xd4, 1, 0x43,
-  	TURN_OFF
 };
 
 
