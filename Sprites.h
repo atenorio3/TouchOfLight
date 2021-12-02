@@ -22,7 +22,7 @@ const unsigned char RoundSprR[]={
 // Coin Render
 // Note: 0x21 + 0x30 = Water Drop
 const unsigned char CoinSpr[]={
-	  0xff,  0xff,0x20,1,
+	  0xff,  0xff,0x21,1,
 	  0xff,  7,0x30,1,
 	128
 };
