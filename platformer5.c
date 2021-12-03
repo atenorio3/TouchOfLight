@@ -19,12 +19,12 @@
 /* famitone stuff */
 //#link "famitone2.s"
 void __fastcall__ famitone_update(void);
-//#link "SoundFx.s"
-extern char sounds[];
 //#link "TestMusic3.s"
 extern char TestMusic3_music_data[];
 //#link "FinalTheme.s"
 extern char FinalTheme[];
+//#link "Death_SFX.s"
+extern char sounds[];
 
 #define VRAMBUF ((byte*)0x700)
 
@@ -260,6 +260,8 @@ void movement(void){
 	} 
   	
   	if(BoxGuy1.y > 0xea00){ // Game Over from falling out of level.
+          	sfx_init(sounds);
+                sfx_play(0,0);
           	game_mode = MODE_GAMEOVER;
         }
 	
