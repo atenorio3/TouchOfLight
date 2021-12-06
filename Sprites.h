@@ -18,6 +18,15 @@ const unsigned char RoundSprR[]={
 	128
 };
 
+// Tombstone Render
+const unsigned char TombSpr[]={
+	  0xff,  0xfc,0x26,0,
+	  7,  0xfc,0x27,0,
+	  0xff,  4,0x36,0,
+	  7,  4,0x37,0,
+	128
+};
+
 
 // Coin Render
 // Note: 0x21 + 0x30 = Water Drop

@@ -29,6 +29,7 @@ extern char sounds[];
 #define VRAMBUF ((byte*)0x700)
 
 void main (void) {
+  	bool firstLoad = true; // Remembers if the current screen has loaded.
   	// Initialize Music
   	// famitone_init(&FinalTheme);
   	// nmi_set_callback(famitone_update);
@@ -41,7 +42,7 @@ void main (void) {
   	// sfx_init(SpikeTrap);
         // sfx_play(0,0);
   
-	ppu_off(); // screen off
+	 // screen off
   
   	// Extras
   	// show_screen(!game_lives?SCREEN_GAMEOVER:SCREEN_WELLDONE);//show game results
@@ -53,19 +54,7 @@ void main (void) {
 	// music_play(song);
 	
 	// load the palettes
-	pal_bg(palette_bg);
-	pal_spr(palette_sp);
-	
-	// use the second set of tiles for sprites
-	// both bg and sprites are set to 0 by default
-	bank_spr(1);
-	
-	set_vram_buffer(); // do at least once
-	clear_vram_buffer();
-	
-	load_room();
-	
-	ppu_on_all(); // turn on screen
+
   
   	
   	
@@ -73,6 +62,25 @@ void main (void) {
 	while (1){
 		// Active State
 		while(game_mode == MODE_GAME){
+                  	if(firstLoad){
+                          ppu_off();
+                          pal_bg(palette_bg);
+                          pal_spr(palette_sp);
+
+                          // use the second set of tiles for sprites
+                          // both bg and sprites are set to 0 by default
+                          bank_spr(1);
+
+                          set_vram_buffer(); // do at least once
+                          clear_vram_buffer();
+
+                          load_room();
+
+                          ppu_on_all(); // turn on screen
+                          scroll_x = 0;
+                          scroll_y = 0;
+                          firstLoad = false;
+                        }
 			ppu_wait_nmi();
                   	
                   	// set_music_speed(8);
@@ -121,7 +129,17 @@ void main (void) {
 		}
           	// Game-Over State
           	while(game_mode == MODE_GAMEOVER){
-                  
+                  	sprid = oam_meta_spr(high_byte(BoxGuy1.x), high_byte(BoxGuy1.y), sprid, TombSpr);
+                  	pad1_new = pad_trigger(0);
+                  	pad1 = pad_state(0);
+                  	if(pad1_new & PAD_A){
+                          BoxGuy1.x = 0x5a00;
+                          BoxGuy1.y = 0xc300;
+                          firstLoad = true;
+                          coins = 0;
+                          game_mode = MODE_GAME;
+                        }
+
                 }
 		
 	}
