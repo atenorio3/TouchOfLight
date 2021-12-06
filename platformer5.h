@@ -56,7 +56,7 @@ unsigned char temp_y;
 // enum {SFX_JUMP, SFX_DING, SFX_NOISE};
 
 unsigned char game_mode;
-enum {MODE_GAME, MODE_PAUSE, MODE_GAMEOVER};
+enum {MODE_START, MODE_GAME, MODE_PAUSE, MODE_GAMEOVER};
 
 unsigned char coins;
 const unsigned char * pointer;
@@ -225,7 +225,7 @@ const unsigned char * const Rooms[]= {
 //y, room, x
 //y = TURN_OFF end of list
 const unsigned char level_1_coins[]={
-	0x61,0,0x65,
+	0x91,0,0x65,
 	0x81,1,0x85,
 	TURN_OFF
 };

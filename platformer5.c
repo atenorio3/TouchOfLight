@@ -54,12 +54,33 @@ void main (void) {
 	// music_play(song);
 	
 	// load the palettes
-
-  
-  	
-  	
 	
 	while (1){
+          	while(game_mode == MODE_START){
+                          ppu_off();
+                  // Note to Randy: You can delete everything...
+                          pal_bg(palette_bg);
+                          pal_spr(palette_sp);
+
+                          bank_spr(1);
+
+                          set_vram_buffer(); // do at least once
+                          clear_vram_buffer();
+
+                          load_room();
+		  // ...between these to lines to implement your rle screen.
+                          ppu_on_all(); // turn on screen
+                  	  while(1){
+                            pad1_new = pad_trigger(0);
+                            pad1 = pad_state(0);
+                            
+                            if(pad1 & PAD_A){
+                              game_mode++;
+                              break;
+                            }
+                          }
+
+                }
 		// Active State
 		while(game_mode == MODE_GAME){
                   	if(firstLoad){
