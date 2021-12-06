@@ -41,6 +41,19 @@ extern const byte infiniteBackground_rle[];
 #define VRAMBUF ((byte*)0x700)
 
 /* Note to Randy: This is the RLE function skeleton code*/
+// Effect for transitioning between screens
+void fade_in() {
+  byte vb;
+  for (vb=0; vb<=4; vb++) {
+    // set virtual bright value
+    pal_bright(vb);
+    // wait for 4/60 sec
+    ppu_wait_frame();
+    ppu_wait_frame();
+    ppu_wait_frame();
+    ppu_wait_frame();
+  }
+}
 // Function for displaying Menu or Background
 void show_screen(const byte* pal, const byte* rle) {
   // disable rendering
@@ -53,8 +66,9 @@ void show_screen(const byte* pal, const byte* rle) {
   vram_unrle(rle);
   // enable rendering
   ppu_on_all();
-  // fade_in();
+  fade_in();
 }
+/*.......................................................*/
 
 void main (void) {
   	bool firstLoad = true; // Remembers if the current screen has loaded.
