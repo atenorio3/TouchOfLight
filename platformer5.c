@@ -26,7 +26,35 @@ extern char FinalTheme[];
 //#link "Death_SFX.s"
 extern char sounds[];
 
+/* Note for Randy: RLE screen variables*/
+// Change the variable names to whatever you want
+extern const byte infiniteTitle_pal[16];
+extern const byte infiniteTitle_rle[];
+extern const byte infiniteBackground_pal[16];
+extern const byte infiniteBackground_rle[];
+
+/* Note for Randy: Name of RLE screen Files*/
+// Delete "Link:" and replace name into the .s file
+//Link: #link "infiniteTitle.s"
+//Link: #link "infiniteBackground.s"
+
 #define VRAMBUF ((byte*)0x700)
+
+/* Note to Randy: This is the RLE function skeleton code*/
+// Function for displaying Menu or Background
+void show_screen(const byte* pal, const byte* rle) {
+  // disable rendering
+  ppu_off();
+  // set palette, virtual bright to 0 (total black)
+  pal_bg(pal);
+  pal_bright(0);
+  // unpack nametable into the VRAM
+  vram_adr(0x2000);
+  vram_unrle(rle);
+  // enable rendering
+  ppu_on_all();
+  // fade_in();
+}
 
 void main (void) {
   	bool firstLoad = true; // Remembers if the current screen has loaded.
@@ -68,8 +96,10 @@ void main (void) {
                           clear_vram_buffer();
 
                           load_room();
+                  	  // RLE Screen Function Call
+                  	  // show_screen(infiniteTitle_pal, infiniteTitle_rle); 
 		  // ...between these to lines to implement your rle screen.
-                          ppu_on_all(); // turn on screen
+                  	  ppu_on_all(); // turn on screen
                   	  while(1){
                             pad1_new = pad_trigger(0);
                             pad1 = pad_state(0);
