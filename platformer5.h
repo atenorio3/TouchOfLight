@@ -56,13 +56,10 @@ unsigned char temp_y;
 // enum {SFX_JUMP, SFX_DING, SFX_NOISE};
 
 unsigned char game_mode;
-enum {MODE_START, MODE_GAME, MODE_PAUSE, MODE_GAMEOVER};
+enum {MODE_GAME, MODE_PAUSE, MODE_GAMEOVER, MODE_WIN};
 
 unsigned char coins;
 const unsigned char * pointer;
-
-
-
 
 #pragma bss-name(push, "BSS")
 
@@ -94,7 +91,7 @@ struct Hero BoxGuy1 = {0x4000,0xc400}; // starting position
 #define HERO_HEIGHT 11
 
 
-#define MAX_COINS 2
+#define MAX_COINS 5
 unsigned char coin_x[MAX_COINS];
 unsigned char coin_y[MAX_COINS];
 unsigned char coin_active[MAX_COINS];
@@ -106,9 +103,18 @@ unsigned char coin_actual_x[MAX_COINS];
 #define COIN_WIDTH 7
 #define COIN_HEIGHT 11
 
+#define EXIT_WIDTH 8
+#define EXIT_HEIGHT 20
+#define MAX_EXIT 1
+unsigned char exit_x[1];
+unsigned char exit_y[1];
+unsigned char exit_active[1];
+unsigned char exit_room[1];
+unsigned char exit_actual_x[1];
 
 
-#define MAX_ENEMY 2
+
+#define MAX_ENEMY 4
 unsigned char enemy_x[MAX_ENEMY];
 unsigned char enemy_y[MAX_ENEMY];
 unsigned char enemy_active[MAX_ENEMY];
@@ -213,13 +219,35 @@ const unsigned char is_solid[]={
 	COL_ALL+COL_DOWN,
 	COL_DOWN,
 	COL_DOWN,
-	COL_DOWN,
+	COL_DOWN, // 5
 	0,
 	0,
 	0,
 	0,
+	0, // 10
 	0,
-	0
+	0,
+	0,
+	0,
+	0, // 15
+  	0,
+	0,
+	0,
+	0,
+	0, // 20
+  	0,
+	0,
+	0,
+	0,
+	0, // 25
+  	0,
+	0,
+	0,
+	0,
+	0, // 30
+  	0,
+	0,
+	0, // 33
 };
 
 
@@ -237,17 +265,27 @@ const unsigned char * const Rooms[]= {
 //y, room, x
 //y = TURN_OFF end of list
 const unsigned char level_1_coins[]={
-	0x91,0,0x65,
+	0xc1,0,0xb5,
 	0x81,1,0x85,
+  	0x30,2,0x95,
+  	0x30,3,0x75,
+  	0x15,4,0x60,
 	TURN_OFF
 };
 
 //y, room, x
 //y = TURN_OFF end of list
 const unsigned char level_1_enemies[]={
-	0xc0,0,0xc0,
+  	0x90,1,0xc5,
 	0xc0,2,0xc0,
+  	0xc0,4,0xc0,
+  	0x90,4,0xd5,
 	TURN_OFF
+};
+
+const unsigned char level_1_exit[]={
+  	0xc0,5,0xc5,
+  	TURN_OFF
 };
 
 

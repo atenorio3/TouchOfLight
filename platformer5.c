@@ -72,6 +72,7 @@ void show_screen(const byte* pal, const byte* rle) {
 
 void main (void) {
   	bool firstLoad = true; // Remembers if the current screen has loaded.
+  	bool finalLoad = true; // Remebers if the win screen has loaded.
   	// Initialize Music
   	// famitone_init(&FinalTheme);
   	// nmi_set_callback(famitone_update);
@@ -98,33 +99,6 @@ void main (void) {
 	// load the palettes
 	
 	while (1){
-          	while(game_mode == MODE_START){
-                          ppu_off();
-                  // Note to Randy: You can delete everything...
-                          pal_bg(palette_bg);
-                          pal_spr(palette_sp);
-
-                          bank_spr(1);
-
-                          set_vram_buffer(); // do at least once
-                          clear_vram_buffer();
-
-                          load_room();
-                  	  // RLE Screen Function Call
-                  	  // show_screen(infiniteTitle_pal, infiniteTitle_rle); 
-		  // ...between these to lines to implement your rle screen.
-                  	  ppu_on_all(); // turn on screen
-                  	  while(1){
-                            pad1_new = pad_trigger(0);
-                            pad1 = pad_state(0);
-                            
-                            if(pad1 & PAD_A){
-                              game_mode++;
-                              break;
-                            }
-                          }
-
-                }
 		// Active State
 		while(game_mode == MODE_GAME){
                   	if(firstLoad){
@@ -203,6 +177,20 @@ void main (void) {
                           firstLoad = true;
                           coins = 0;
                           game_mode = MODE_GAME;
+                        }
+                }
+          	
+          	// Win State
+          	while(game_mode == MODE_WIN){
+                  	if(finalLoad){
+                        char prompt1[] = "To be continued...";
+                        
+                  	ppu_off();
+                        oam_clear();
+                        vram_adr(NTADR_B(9,4));
+                        vram_write(prompt1, 18);
+                  	ppu_on_all();
+                        finalLoad = false;
                         }
 
                 }
@@ -721,6 +709,19 @@ void sprite_collisions(void){
 			}
 		}
         }
+  
+  	Generic2.width = EXIT_WIDTH;
+	Generic2.height = EXIT_HEIGHT;
+	
+	for(index = 0; index < MAX_EXIT; ++index){
+		if(exit_active[index]){
+			Generic2.x = exit_x[index];
+			Generic2.y = exit_y[index];
+			if(check_collision(&Generic, &Generic2)){
+                          	game_mode = MODE_WIN;
+			}
+		}
+        }
 }
 
 
@@ -747,6 +748,16 @@ void check_spr_objects(void){
 			enemy_active[index] = get_position();
 			enemy_x[index] = temp_x; // screen x coords
 		}
+
+	}	
+  
+        for(index = 0; index < MAX_EXIT; ++index){
+          exit_active[index] = 0; //default to zero
+          if(exit_y[index] != TURN_OFF){
+            temp5 = (exit_room[index] << 8) + exit_actual_x[index];
+            exit_active[index] = get_position();
+            exit_x[index] = temp_x; // screen x coords
+          }
 
 	}	
 }
@@ -825,6 +836,36 @@ void sprite_obj_init(void){
 	
 	for(++index;index < MAX_ENEMY; ++index){
 		enemy_y[index] = TURN_OFF;
+	}
+  
+  	pointer = level_1_exit;
+	for(index = 0,index2 = 0;index < MAX_EXIT; ++index){
+		
+		exit_x[index] = 0;
+
+		temp1 = pointer[index2]; // get a byte of data
+		exit_y[index] = temp1;
+		
+		if(temp1 == TURN_OFF) break;
+
+		++index2;
+		
+		exit_active[index] = 0;
+
+		
+		temp1 = pointer[index2]; // get a byte of data
+		exit_room[index] = temp1;
+		
+		++index2;
+		
+		temp1 = pointer[index2]; // get a byte of data
+		exit_actual_x[index] = temp1;
+		
+		++index2;
+	}
+	
+	for(++index;index < MAX_EXIT; ++index){
+		exit_y[index] = TURN_OFF;
 	}
 }
 
