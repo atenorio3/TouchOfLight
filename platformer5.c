@@ -198,6 +198,7 @@ void main (void) {
                   	sprid = oam_meta_spr(high_byte(BoxGuy1.x), high_byte(BoxGuy1.y), sprid, TombSpr);
                   	pad1_new = pad_trigger(0);
                   	pad1 = pad_state(0);
+                  	pal_spr(&palette_sp[13]);
                   	if(pad1_new & PAD_A){
                           BoxGuy1.x = 0x5a00;
                           BoxGuy1.y = 0xc300;
