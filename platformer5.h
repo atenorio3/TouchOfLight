@@ -56,7 +56,7 @@ unsigned char temp_y;
 // enum {SFX_JUMP, SFX_DING, SFX_NOISE};
 
 unsigned char game_mode;
-enum {MODE_GAME, MODE_PAUSE, MODE_GAMEOVER, MODE_WIN};
+enum {MODE_START, MODE_GAME, MODE_PAUSE, MODE_GAMEOVER, MODE_WIN};
 
 unsigned char coins;
 const unsigned char * pointer;
